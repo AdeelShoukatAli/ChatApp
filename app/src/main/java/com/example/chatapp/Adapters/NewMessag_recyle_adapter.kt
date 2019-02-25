@@ -32,7 +32,6 @@ class NewMessag_recyle_adapter(var ctx:Context, var userData:ArrayList<Users>, v
          holder.cardView.setOnClickListener{
             viewClick(it,position)
         }
-
     }
 
     inner class customViewHoler(view: View) : RecyclerView.ViewHolder(view) {

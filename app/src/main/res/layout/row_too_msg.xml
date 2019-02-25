@@ -5,24 +5,21 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     <de.hdodenhof.circleimageview.CircleImageView
-            android:layout_width="80dp" android:layout_height="80dp"
+            android:layout_width="60dp" android:layout_height="60dp"
             android:background="@drawable/user_image_vector"
             android:id="@+id/toCircleImageView"
-            android:layout_marginTop="8dp"
-            android:layout_marginLeft="8dp"
-            android:layout_marginStart="8dp"/>
+            android:layout_marginTop="15dp"
+            android:layout_marginLeft="10dp"/>
     <TextView
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:maxWidth="240dp"
             android:layout_marginTop="20dp"
             android:background="@drawable/row_to"
             android:layout_height="wrap_content"
             android:textSize="20sp"
-            android:paddingLeft="10dp"
-            android:paddingRight="10dp"
-            android:paddingTop="5dp"
-            android:paddingBottom="5dp"
+            android:padding="10dp"
             android:id="@+id/to_msg_tv"
-            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginBottom="20dp"
     />
 </LinearLayout>

@@ -47,10 +47,11 @@ class LoginActivity : AppCompatActivity() {
                 Toast.makeText(this@LoginActivity,"Logged in",Toast.LENGTH_SHORT).show()
                 val intent = Intent(this@LoginActivity, LatestMessagesActivity::class.java)
                 startActivity(intent)
+                this.finish()
                 Log.d("LoginActivity","User ${userEmail} logged in")
             }
             .addOnFailureListener{
-                Log.d("LoginActivity","Logged in failure")
+                Log.d("LoginActivity",it.message)
                 Toast.makeText(this@LoginActivity,it.message,Toast.LENGTH_SHORT).show()
                 return@addOnFailureListener
             }

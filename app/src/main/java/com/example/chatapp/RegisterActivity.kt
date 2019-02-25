@@ -15,11 +15,14 @@ import android.support.v4.app.ActivityCompat
 import android.support.v4.content.ContextCompat
 import android.support.v7.app.AlertDialog
 import android.util.Log
+import android.view.View
+import android.widget.ImageButton
 import android.widget.Toast
 import com.example.chatapp.Models.Users
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.database.FirebaseDatabase
 import com.google.firebase.storage.FirebaseStorage
+import kotlinx.android.synthetic.main.activity_change_user_info.*
 import kotlinx.android.synthetic.main.activity_main.*
 import java.io.InputStream
 import java.util.*
@@ -141,9 +144,14 @@ class RegisterActivity : AppCompatActivity() {
             GALLERY_IMAGE_REQ_CODE -> {
                 if (resultCode == Activity.RESULT_OK) {
                     val imageuri = data!!.getData()
-                    //     val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,uri)
-                    imageBtn_register.setImageURI(imageuri)
+//                    val input:InputStream? = this@RegisterActivity.contentResolver.openInputStream(imageuri)
+ //                  val bitmap = BitmapFactory.decodeStream(input)
+                  val bitmap = MediaStore.Images.Media.getBitmap(contentResolver,imageuri)
+
+                    imageBtn_register.setImageBitmap(bitmap)
+//                    userImg?.alpha = 0f
                     SELECTED_PHOTO_URI = imageuri
+           //         userImg.visibility = View.INVISIBLE
                 }
             }
         }

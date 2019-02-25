@@ -21,8 +21,8 @@ import java.nio.file.FileVisitResult
 class ChatLogActivity : AppCompatActivity() {
         lateinit var chatData:ArrayList<ChatMessage>
         lateinit var adapter: chat_adapter_RecyclerView
-       lateinit var user: Users
-        var fromId:String = NewMessageActivity.fromUser!!.userId
+        lateinit var user: Users
+        var fromId = FirebaseAuth.getInstance().uid
         var toId:String = NewMessageActivity.toUser!!.userId
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +38,7 @@ class ChatLogActivity : AppCompatActivity() {
         send_btn_chatLog.setOnClickListener {
             if(textMsg.text.toString().isNotEmpty()) {
                 sendMessagetoDb(textMsg.text.toString())
-                textMsg.setText("")
+                textMsg.text.clear()
             }
         }
         supportActionBar?.title = NewMessageActivity.toUser!!.userName
@@ -91,7 +91,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         val FromMsgRef = FirebaseDatabase.getInstance().getReference("/UserMessages/"+fromId+toId).push()
 
-            val FromessageData = ChatMessage(FromMsgRef.key!!,msgText,fromId,user.userId)
+            val FromessageData = ChatMessage(FromMsgRef.key!!,msgText,fromId!!,toId)
         FromMsgRef.setValue(FromessageData)
                 .addOnSuccessListener {
                     Log.d("ChatLog","Message added successfully")
@@ -102,7 +102,7 @@ class ChatLogActivity : AppCompatActivity() {
 
         val toMsgRef = FirebaseDatabase.getInstance().getReference("/UserMessages/"+toId+fromId).push()
 
-        val toMessageData = ChatMessage(toMsgRef.key!!,msgText,fromId,user.userId)
+        val toMessageData = ChatMessage(toMsgRef.key!!,msgText,fromId!!,toId)
         toMsgRef.setValue(toMessageData)
             .addOnSuccessListener {
                 Log.d("ChatLog","Message added successfully")
@@ -111,8 +111,8 @@ class ChatLogActivity : AppCompatActivity() {
                 Toast.makeText(this@ChatLogActivity,it.message,Toast.LENGTH_SHORT).show()
             }
 
-        val fromLatestMsgsRef = FirebaseDatabase.getInstance().getReference("/latest_msgs/ $fromId/$toId")
-        val toLatestMsgsRef = FirebaseDatabase.getInstance().getReference("/latest_msgs/ $toId/$fromId")
+        val fromLatestMsgsRef = FirebaseDatabase.getInstance().getReference("/latest_msgs/$fromId/$toId")
+        val toLatestMsgsRef = FirebaseDatabase.getInstance().getReference("/latest_msgs/$toId/$fromId")
         fromLatestMsgsRef.setValue(FromessageData)
         toLatestMsgsRef.setValue(toMessageData)
 

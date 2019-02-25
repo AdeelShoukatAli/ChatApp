@@ -12,11 +12,11 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recyView_chaLog"
-            android:background="@color/bg_green"
+            android:background="@color/light_blue"
             android:layout_above="@+id/linear_view">
     </android.support.v7.widget.RecyclerView>
 
-    <LinearLayout
+    <RelativeLayout
             android:layout_alignParentBottom="true"
             android:layout_width="match_parent"
             android:orientation="horizontal"
@@ -24,21 +24,21 @@
             android:layout_height="50dp">
         <EditText
                 android:layout_alignParentBottom="true"
-                android:layout_width="300dp"
-                android:layout_height="35dp"
+                android:layout_width="365dp"
+                android:layout_height="45dp"
                 android:background="@color/White"
-                android:hint="Type Message"
+                android:hint="@string/type_message"
                 android:paddingLeft="10dp"
                 android:id="@+id/textMsg"/>
-        <Button
-                android:text="Send"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="3dp"
-                android:background="@drawable/rounded_button"
-                android:textStyle="bold"
+        <ImageButton
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="3dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                 android:background="@drawable/ic_send_black_24dp"
                 android:id="@+id/send_btn_chatLog"/>
 
-    </LinearLayout>
+    </RelativeLayout>
 
 </RelativeLayout>

@@ -1,7 +1,10 @@
 package com.example.chatapp
 
 import android.app.Activity
+import android.app.AlertDialog
+import android.app.Dialog
 import android.content.Context
+import android.content.DialogInterface
 import android.content.Intent
 import android.net.Uri
 import android.support.v7.app.AppCompatActivity
@@ -32,12 +35,13 @@ class ChangeUserInfo : AppCompatActivity() {
         setContentView(R.layout.activity_change_user_info)
         val userAvailable = LoginActivity.UserLoggedIn()
         if(userAvailable) {
-            val userName:String = userName_et_changeInfo.text.toString()
+
             fetchUser()
             changeInfo_btn.setOnClickListener{
+                val userName:String = userName_et_changeInfo.text.toString()
                 if(userName.isNotEmpty()) {
                     if(SELECTED_PHOTO_URI !=null) {
-                        uploadImageToDb()
+                        viewDialog()
                     } else{Toast.makeText(ctx,"Please select Image",Toast.LENGTH_SHORT).show()}
                 } else userName_et_changeInfo.setError("User name can not left be blank")
             }
@@ -53,6 +57,27 @@ class ChangeUserInfo : AppCompatActivity() {
             startActivity(Intent(this@ChangeUserInfo, LoginActivity::class.java))
         }
 
+    }
+
+    private fun viewDialog() {
+        val dialogBuilder = AlertDialog.Builder(this@ChangeUserInfo)
+        dialogBuilder.setTitle("Confirm data change")
+        dialogBuilder.setMessage("Are you sure want to update your infor?")
+        val createBuilder = dialogBuilder.create()
+        dialogBuilder.setCancelable(false)
+        dialogBuilder.setNegativeButton("No", object : DialogInterface.OnClickListener{
+            override fun onClick(p0: DialogInterface?, p1: Int) {
+                createBuilder.dismiss()
+            }
+
+        })
+        dialogBuilder.setPositiveButton("Yes", object: DialogInterface.OnClickListener{
+            override fun onClick(p0: DialogInterface?, p1: Int) {
+                uploadImageToDb()
+            }
+
+        })
+        dialogBuilder.show()
     }
 
     private fun getImage() {
